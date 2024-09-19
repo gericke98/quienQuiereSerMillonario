@@ -43,15 +43,15 @@ export default function FinalCard({ correct }: Props) {
           className="mb-24"
         />
         <h5 className="font-bold mb-10 text-center text-2xl">
-          ENHORABUENA!! HAS GANADO EL SIGUIENTE PREMIO: <br></br>
-          <span className="text-3xl font-bold text-cyan-950 mt-5">
-            {correct > 0 ? (
-              options[correct - 1].prize
-            ) : (
-              <p>Suerte la próxima vez!</p>
-            )}
-          </span>
+          ENHORABUENA!! HAS GANADO EL SIGUIENTE PREMIO:
         </h5>
+        <span className="text-3xl font-bold text-cyan-950 my-5">
+          {correct > 0 ? (
+            options[correct - 1].prize
+          ) : (
+            <p>Suerte la próxima vez!</p>
+          )}
+        </span>
       </div>
     </div>
   );
