@@ -42,13 +42,15 @@ export const PrizePage = ({ correct }: Props) => {
           <h5 className="w-full p-3 rounded-2xl text-base">{option.prize}</h5>
         </div>
       ))}
-      <Image
-        src={LogoImg}
-        alt="Logo"
-        width={250}
-        height={250}
-        className="mb-5"
-      />
+      <div className="w-full h-full flex flex-col items-center">
+        <Image
+          src={LogoImg}
+          alt="Logo"
+          width={250}
+          height={250}
+          className="mb-5"
+        />
+      </div>
     </div>
   );
 };
