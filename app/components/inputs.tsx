@@ -33,7 +33,14 @@ export const Inputs = () => {
   return (
     <div className="bg-white flex flex-col lg:w-[30%] w-3/4 rounded-3xl items-center lg:px-10 px-5">
       <div className="flex flex-col w-full items-center py-10">
-        <Image src={Logo} alt="Logo" width={150} height={150} />
+        <Image
+          src={Logo}
+          alt="Logo"
+          width={200}
+          height={150}
+          priority
+          className="w-auto h-auto"
+        />
         <span className="border w-full border-slate-100 mt-5" />
         <h5 className="text-xs mt-2 mb-10 text-slate-500">
           ATRAPA ROPA GRATIS
