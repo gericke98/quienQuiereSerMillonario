@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { FaClock } from "react-icons/fa";
-import { useAudio } from "react-use";
 
 type Props = {
   setIsFinal: React.Dispatch<React.SetStateAction<boolean>>;
   resetTimer: boolean;
+  isFlipped: boolean;
 };
 
-const CountdownTimer = ({ setIsFinal, resetTimer }: Props) => {
+const CountdownTimer = ({ setIsFinal, resetTimer, isFlipped }: Props) => {
   // Initial time in seconds (1 hour)
-  const initialTime = 34;
+  const initialTime = 30;
   const [timeRemaining, setTimeRemaining] = useState(initialTime);
 
   useEffect(() => {
@@ -18,24 +18,26 @@ const CountdownTimer = ({ setIsFinal, resetTimer }: Props) => {
   }, [resetTimer]);
 
   useEffect(() => {
-    const timerInterval = setInterval(() => {
-      setTimeRemaining((prevTime) => {
-        if (prevTime === 0) {
-          clearInterval(timerInterval);
-          // Perform actions when the timer reaches zero
-          setTimeout(() => {
-            setIsFinal(true);
-          }, 1500);
-          return 0;
-        } else {
-          return prevTime - 1;
-        }
-      });
-    }, 1000);
+    if (isFlipped) {
+      const timerInterval = setInterval(() => {
+        setTimeRemaining((prevTime) => {
+          if (prevTime === 0) {
+            clearInterval(timerInterval);
+            // Perform actions when the timer reaches zero
+            setTimeout(() => {
+              setIsFinal(true);
+            }, 1500);
+            return 0;
+          } else {
+            return prevTime - 1;
+          }
+        });
+      }, 1000);
 
-    // Cleanup the interval when the component unmounts
-    return () => clearInterval(timerInterval);
-  }, []); // The empty dependency array ensures the effect runs only once on mount
+      // Cleanup the interval when the component unmounts
+      return () => clearInterval(timerInterval);
+    }
+  }, [isFlipped]); // The empty dependency array ensures the effect runs only once on mount
 
   // Convert seconds to hours, minutes, and seconds
   const seconds = timeRemaining % 60;

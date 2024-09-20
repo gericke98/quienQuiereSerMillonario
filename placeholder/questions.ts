@@ -1911,7 +1911,7 @@ export const questionMaster = [
   },
   {
     id: 68,
-    Cantantes: "Malmö 040",
+    Cantantes: "Malmo 040",
     Preguntas:
       "¿Qué quiere matar Malmo 040 junto a Besmaya en uno de sus singles más famosos?",
     Nivel: 1,
@@ -1940,7 +1940,7 @@ export const questionMaster = [
   },
   {
     id: 69,
-    Cantantes: "Malmö 040",
+    Cantantes: "Malmo 040",
     Preguntas: "¿En una de las canciones de Malmo 040 los cobardes viven..?",
     Nivel: 2,
     Respuestas: [
@@ -1968,7 +1968,7 @@ export const questionMaster = [
   },
   {
     id: 70,
-    Cantantes: "Malmö 040",
+    Cantantes: "Malmo 040",
     Preguntas: "¿De qué ciudad son originarios Malmo 040?",
     Nivel: 3,
     Respuestas: [
@@ -1996,7 +1996,7 @@ export const questionMaster = [
   },
   {
     id: 71,
-    Cantantes: "Malmö 040",
+    Cantantes: "Malmo 040",
     Preguntas:
       "¿Cuál de estos artistas no ha hecho una colaboración Malmo 040?",
     Nivel: 4,

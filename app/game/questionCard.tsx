@@ -1,5 +1,5 @@
 "use client";
-import { CardData, CardQuestion, Question } from "@/types";
+import { CardData, Question } from "@/types";
 import Image from "next/image";
 import { AnswerOption } from "./answerOption";
 import React, { useEffect, useState } from "react";
@@ -50,16 +50,20 @@ export default function QuestionCard({
   });
 
   useEffect(() => {
-    if (finalSelectedIndex) {
+    if (finalSelectedIndex !== null && cards[finalSelectedIndex] && isFlipped) {
       // Extract the artist and filter by both artist and level
       const artist = cards[finalSelectedIndex].text;
-      const filteredQuestions = filterByCantantesAndNivel(artist, correct + 1);
-
-      if (filteredQuestions.length > 0) {
-        const randomQuestion = getRandomQuestion(filteredQuestions);
-        setQuestion(randomQuestion); // Save the random question in state
-      } else {
-        console.log("No questions found for the selected artist and level.");
+      if (artist) {
+        const filteredQuestions = filterByCantantesAndNivel(
+          artist,
+          correct + 1
+        );
+        if (filteredQuestions.length > 0) {
+          const randomQuestion = getRandomQuestion(filteredQuestions);
+          setQuestion(randomQuestion); // Save the random question in state
+        } else {
+          console.log("No questions found for the selected artist and level.");
+        }
       }
     }
   }, [finalSelectedIndex, correct]);
@@ -73,6 +77,9 @@ export default function QuestionCard({
       ) {
         correctControls.play();
         if (correct > 2) {
+          setCorrect(correct + 1);
+          setFlipped(false);
+          setIsAnswered(false);
           setIsFinal(true);
         } else {
           setTimeout(() => {
@@ -106,13 +113,7 @@ export default function QuestionCard({
   ];
 
   return (
-    <div
-      className={`${
-        isFlipped
-          ? "bg-white absolute top-1/2 left-1/2 min-h-80 z-50 py-10 px-10 transform -translate-x-1/2 -translate-y-1/2 flex flex-col gap-8 w-4/6 rounded-2xl"
-          : "hidden"
-      }`}
-    >
+    <div className="bg-white absolute top-1/2 left-1/2 min-h-80 z-50 py-10 px-10 transform -translate-x-1/2 -translate-y-1/2 flex flex-col gap-8 w-4/6 rounded-2xl">
       {correctAudio}
       {incorrectAudio}
       <IoCloseCircleSharp
@@ -131,7 +132,11 @@ export default function QuestionCard({
           width={350}
           alt="Hola"
         />
-        <CountdownTimer setIsFinal={setIsFinal} resetTimer={resetTimer} />
+        <CountdownTimer
+          setIsFinal={setIsFinal}
+          resetTimer={resetTimer}
+          isFlipped={isFlipped}
+        />
 
         <h2 className="mt-2 font-semibold text-lg text-center">
           {correctJSON[correct]}. {question?.Preguntas}

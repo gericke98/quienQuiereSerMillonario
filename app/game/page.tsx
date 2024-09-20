@@ -33,38 +33,41 @@ export default function GamePage() {
   const startHighlighting = () => {
     setHighlightedIndex(null);
     setFinalSelectedIndex(null);
-    let interval: NodeJS.Timeout;
-    let timeout: NodeJS.Timeout;
 
     // Generate a random order
     const randomOrder = shuffleArray([...Array(cards.length).keys()]);
     let currentIndex = 0;
-    interval = setInterval(() => {
+
+    // Start highlighting process
+    const interval = setInterval(() => {
       setHighlightedIndex(randomOrder[currentIndex]);
       currentIndex = (currentIndex + 1) % cards.length;
     }, 100); // Change the highlighting speed if needed
 
     // After 3 seconds, select a random card and stop the highlighting
-    timeout = setTimeout(() => {
+    const timeout = setTimeout(() => {
       clearInterval(interval);
       const randomIndex = Math.floor(Math.random() * cards.length);
       setHighlightedIndex(null); // Reset highlighting
       setFinalSelectedIndex(randomOrder[randomIndex]); // Highlight only the final card
 
+      //  Flip the final card after a short delay
       setTimeout(() => {
         setFlipped(true);
       }, 500);
     }, 3000);
+
+    // Clear timers if the component unmounts or the user leaves the page
     return () => {
       clearInterval(interval);
       clearTimeout(timeout);
     };
   };
   return (
-    <div className="w-full h-full flex flex-row">
+    <main className="w-full h-full flex flex-row">
       <div className="basis-3/4 relative">
         <div className="flex min-h-screen flex-col items-center justify-center px-10 py-10 bg-black-pattern relative">
-          {!isFinal ? (
+          {!isFinal && isFlipped && (
             <QuestionCard
               isFlipped={isFlipped}
               finalSelectedIndex={finalSelectedIndex}
@@ -74,9 +77,8 @@ export default function GamePage() {
               setCorrect={setCorrect}
               setIsFinal={setIsFinal}
             />
-          ) : (
-            <FinalCard correct={correct} />
           )}
+          {isFinal && <FinalCard correct={correct} />}
           <div className="bg-white-pattern grid grid-cols-5 gap-2 w-full p-4 relative">
             {cards.map((card, index) => (
               <CardArtist
@@ -101,6 +103,6 @@ export default function GamePage() {
         </div>
       </div>
       <PrizePage correct={correct} />
-    </div>
+    </main>
   );
 }
