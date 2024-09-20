@@ -6,30 +6,13 @@ import { Button } from "./button";
 import { checkPassword } from "@/actions/form";
 import { useFormState } from "react-dom";
 import { useEffect, useState } from "react";
-import { useToast } from "@/hooks/use-toast";
 
 export const Inputs = () => {
-  const { toast } = useToast();
   const [initialState, setInitialState] = useState({
     success: false,
     message: "",
   });
   const [state, formAction] = useFormState(checkPassword, initialState);
-  useEffect(() => {
-    if (state?.message === "Mail no váldo") {
-      toast({
-        variant: "destructive",
-        title: state.message,
-        description: "Por favor, introduce un mail válido",
-      });
-    } else if (state?.message === "Introducir un valor") {
-      toast({
-        variant: "destructive",
-        title: state.message,
-        description: "Por favor, introduce un valor",
-      });
-    }
-  }, [toast, state]);
   return (
     <div className="bg-white flex flex-col lg:w-[30%] w-3/4 rounded-3xl items-center lg:px-10 px-5">
       <div className="flex flex-col w-full items-center py-10">
