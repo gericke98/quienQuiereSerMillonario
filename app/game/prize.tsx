@@ -23,7 +23,7 @@ const options = [
   },
   {
     icon: <FaCrown size={25} />,
-    prize: "CAMISETA GRATIS",
+    prize: "CAMISETA GRATIS*",
   },
 ];
 export const PrizePage = ({ correct }: Props) => {
